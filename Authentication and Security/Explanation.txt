@@ -1,0 +1,106 @@
+378. Level 1 - Register Users with Username and Password
+
+1. Level 1 security:
+ - Creating an account for the user, storing their data email and Password in
+our database.
+ - When they come back at a later date we can check their email against the Password,
+and see if they can pass or not.
+
+1.1 Create a user database:
+ - Create using mongoDB;
+1. Install mongoose;
+2. require mongoose;
+
+3. Create a connection with mongodb database and at the same time write the name
+of the new database.
+mongoose.connect("mongodb://localhost:27017/userD");
+
+4. Create a schema(structure for your database):
+
+5. Create a model using this schema.
+
+6. Create app.post("/resgister", function(req, res){});
+ - To grab information provided by the user.
+
+7. Save the new user and render the secrets page.
+ - Go to the register page and make the registration.
+  - Your registration will be stored inside the userD database. Yeyy!!
+
+8. Create app.post to the login route - This allows the user to login.
+ - Stored the infomation provided by the user when he tried to login.
+  - Make this validation:
+
+  User.findOne({email:username}, function(err, foundUser){
+    if (err){
+      console.log(err);
+    }else{
+      if (foundUser){ //If the user exists run the next code:
+        if(foundUser.password === password){
+          res.render("secrets");
+          //Now, to to the login page, if you write the username and the password
+        //right you will be sent to the page secrets.
+        }
+      }
+    }
+  });
+
+   - Go to the page http://localhost:3000/login
+   - Try to check a existing login - and go to the secrets page automatically.
+
+*********************************************************************************
+
+380. Level 2 - Database Encryption:
+
+ - Improve the security for our user on our website.
+
+1. What is Encryption?
+ - It's like mess around or shuffle something so that people can't tell what the
+the original was, unless they in on the secret and they knew how to unscramble.
+
+
+2. Install the npm package called mongoose-encryption.
+ - It's a very simple encryption package that works with mongoose.
+ - It uses an encryption algorithm called AES.
+
+3. Installing and using mongoose-encryption:
+
+ - Installing in terminal: npm i mongoose-encryption;
+ - Require in the app.js: const encrypt = require("mongoose-encryption");
+
+********************************************************************************
+
+381. Using Environment Variables to Keep Secrets Safe
+
+ - What is Environment Variables?
+ - It's a simple file that we're keep certain sensitive variables such as encryption keys
+and API keys.
+
+  - Storing configuration in the environment separate from code is based on The Twelve-Factor App methodology.
+
+ - We will use the package called dotenv(.env);
+
+1. First install .env in terminal;
+
+2. Write this on app.js to see if is running:
+console.log(process.env.API_KEY);
+
+3. Create a file called .env inside your folder;
+
+4. Write this in your .env file
+SECRET=Thisisarelittlesecret.
+API_KEY=kelreuhçvyuohgfrigthhmhijhf
+
+5. Hide some files using .gitignore:
+ - ignore the node_module;
+ - ignore the .env file;
+ - Copy and paste the template from Github:
+ https://github.com/github/gitignore/blob/main/Node.gitignore
+ - Paste inside your gitignore file.
+
+OBSERVATION:
+
+git add. (to add all of my files in my folder.)
+git commit -m "Add environment Vars"(add commit message to changes)
+
+__ This push all files commited to locally to Github.
+git push -u origin master (push all to the origin master)
